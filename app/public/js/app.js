@@ -99,6 +99,37 @@ $("#add").click(function(){
 	// });
 });
 
+$("#locate").click(function(){
+
+	if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+        	console.log(position)
+        	console.log(position.coords.latitude)
+        	console.log(position.coords.longitude)
+
+        	var pos = {
+        		lat: position.coords.latitude, 
+        		lng: position.coords.longitude
+        	}
+
+
+        	var marker = new google.maps.Marker({
+			    position: pos,
+			    map: map,
+			    animation: google.maps.Animation.DROP,
+			    // icon: "die.png",
+			    title: 'You are here!',
+			    info: 'You Are Here!'
+			});
+
+			map.setCenter(pos);
+        });
+    } else {
+       alert("Geolocation is not supported by this browser.");
+    }
+
+})
+
 $(document).ready(function() {
     $('select').material_select();
 });
